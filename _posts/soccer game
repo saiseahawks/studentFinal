@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Football Penalty Shootout Game</title>
+</head>
+<body>
+    <script>
+        function penaltyShootout() {
+            alert("Welcome to the Football Penalty Shootout Game!");
+
+            var goals = 0;
+            var misses = 0;
+            var totalShots = 5;
+
+            for (var i = 0; i < totalShots; i++) {
+                var keeperChoice = prompt("You are the goalkeeper!\nTry to save the penalty kick!\nDive left, center, or right?").toLowerCase();
+                var kickChoice = ["left", "center", "right"][Math.floor(Math.random() * 3)];
+
+                if (keeperChoice === kickChoice) {
+                    alert("You saved the penalty kick!");
+                } else {
+                    alert("Opponent scored a goal " + kickChoice.toUpperCase() + "!");
+                    misses++;
+                }
+
+                alert("Score: " + goals + " goals, " + misses + " misses");
+            }
+
+            alert("Now you are the penalty kicker!");
+            for (var i = 0; i < totalShots; i++) {
+                alert("Try to score a goal!");
+
+                var kickChoice = prompt("Kick left, center, or right?").toLowerCase();
+                var keeperChoice = ["left", "center", "right"][Math.floor(Math.random() * 3)];
+
+                if (kickChoice === keeperChoice) {
+                    alert("Goalkeeper saved your shot!");
+                    misses++;
+                } else {
+                    alert("You scored a goal!");
+                    goals++;
+                }
+
+                alert("Score: " + goals + " goals, " + misses + " misses");
+            }
+
+            alert("Game Over!");
+            alert("Final Score: " + goals + " goals, " + misses + " misses");
+        }
+
+        penaltyShootout();
+    </script>
+</body>
+</html>
