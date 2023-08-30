@@ -7,7 +7,6 @@ title: Student Blog
 ## Sai's Blog !!!
 
 Go to my [Github account](https://github.com/saiseahawks) !!
-![Alt text]ginger(speedy.jpeg)
 
 The Seattle Seahawks are the best team!!!
 ![Alt text](<seahawks cool.jpeg>)
