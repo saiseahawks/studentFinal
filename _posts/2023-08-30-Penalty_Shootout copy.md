@@ -12,7 +12,52 @@ type: hacks
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Football Penalty Shootout Game</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #gameOutput {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -24,7 +69,7 @@ type: hacks
         document.addEventListener("DOMContentLoaded", function () {
             const startButton = document.getElementById("startButton");
             const gameOutput = document.getElementById("gameOutput");
-
+            
             function playGame() {
                 gameOutput.innerHTML = "";
                 const total_shots = 5;
@@ -80,7 +125,6 @@ type: hacks
 
                 start();
             }
-
             startButton.addEventListener("click", playGame);
         });
     </script>

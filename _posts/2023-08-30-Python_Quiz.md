@@ -3,7 +3,7 @@ toc: true
 title: Python IO
 comments: true
 layout: post
-description: A common way to become familiar with a language is to build a calculator.  This calculator shows off button with actions.
+description: A Quick Quiz on Python
 courses: { compsci: {week: 2} }
 type: hacks
 ---
@@ -12,72 +12,67 @@ type: hacks
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz</title>
+  <title>Interactive Quiz</title>
 </head>
 <body>
-  <h1>Quiz Time</h1>
-  <p id="output"></p>
+  <h1>Interactive Quiz</h1>
+  <div id="question"></div>
+  <div id="response"></div>
   <script>
-    const outputElement = document.getElementById("output");
-    const questions = 3;
+    const questions = [
+      {
+        question: "What command is used to include other functions that were previously developed?",
+        correctAnswer: "import"
+      },
+      {
+        question: "What command is used to evaluate correct or incorrect response in this example?",
+        correctAnswer: "if"
+      },
+      {
+        question: "Each 'if' command contains an '_________' to determine a true or false condition?",
+        correctAnswer: "expression"
+      }
+    ];
+
+    let currentQuestion = 0;
     let correct = 0;
 
-    function questionWithResponse(prompt, callback) {
-      const response = prompt(prompt + "\n");
-      callback(response);
-    }
-
-    questionWithResponse("Are you ready to take a test?", function (response) {
-      response = response.toLowerCase();
-      if (response === "yes" || response === "y") {
-        askQuestion1();
+    function displayQuestion() {
+      const questionDiv = document.getElementById("question");
+      const responseDiv = document.getElementById("response");
+      responseDiv.innerHTML = "";
+      
+      if (currentQuestion < questions.length) {
+        const question = questions[currentQuestion].question;
+        questionDiv.textContent = "Question: " + question;
+        
+        const answerButton = document.createElement("button");
+        answerButton.textContent = "Submit Answer";
+        answerButton.addEventListener("click", checkAnswer);
+        responseDiv.appendChild(answerButton);
       } else {
-        outputElement.textContent = "Test cancelled.";
+        questionDiv.textContent = "Quiz Completed!";
+        responseDiv.textContent = "You scored " + correct + " out of " + questions.length;
       }
-    });
-
-    function askQuestion1() {
-      questionWithResponse("What command is used to include other functions that were previously developed?", function (response) {
-        response = response.toLowerCase();
-        if (response === "import") {
-          outputElement.textContent = response + " is correct!";
-          correct++;
-        } else {
-          outputElement.textContent = response + " is incorrect!";
-        }
-        askQuestion2();
-      });
     }
 
-    function askQuestion2() {
-      questionWithResponse("What command is used to evaluate correct or incorrect response in this example?", function (response) {
-        response = response.toLowerCase();
-        if (response === "if") {
-          outputElement.textContent = response + " is correct!";
-          correct++;
-        } else {
-          outputElement.textContent = response + " is incorrect!";
-        }
-        askQuestion3();
-      });
+    function checkAnswer() {
+      const responseDiv = document.getElementById("response");
+      const userAnswer = prompt("Your answer:");
+      const correctAnswer = questions[currentQuestion].correctAnswer.toLowerCase();
+      
+      if (userAnswer.toLowerCase() === correctAnswer) {
+        responseDiv.textContent = "Correct!";
+        correct++;
+      } else {
+        responseDiv.textContent = "Incorrect. The correct answer is: " + questions[currentQuestion].correctAnswer;
+      }
+      
+      currentQuestion++;
+      displayQuestion();
     }
 
-    function askQuestion3() {
-      questionWithResponse("Each 'if' command contains an '_________' to determine a true or false condition?", function (response) {
-        response = response.toLowerCase();
-        if (response === "expression") {
-          outputElement.textContent = response + " is correct!";
-          correct++;
-        } else {
-          outputElement.textContent = response + " is incorrect!";
-        }
-        displayScore();
-      });
-    }
-
-    function displayScore() {
-      outputElement.textContent = "You scored " + correct + "/" + questions;
-    }
+    displayQuestion();
   </script>
 </body>
 </html>
