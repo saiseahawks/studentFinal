@@ -1,9 +1,10 @@
 ---
+toc: true
 title: Classic Soccer Game
-layout: base
+layout: post
 description: Fun highly challenging guessing game
-categories: [C4.9]
-tags: [javascript]
+courses: {compsci: {week: 2}}
+type: hacks
 ---
 <!DOCTYPE html>
 <html lang="en">

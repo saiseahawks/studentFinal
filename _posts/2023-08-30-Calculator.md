@@ -1,12 +1,11 @@
 ---
+toc: true
 title: JS Calculator
 comments: true
-layout: default
+layout: post
 description: A common way to become familiar with a language is to build a calculator.  This calculator shows off button with actions.
-permalink: /techtalk/home_style
-categories: [C7.0]
-courses: { csse: {week: 2}, csp: {week: 2, categories: [2.C]}, csp: {week: 2} }
-type: ccc
+courses: { compsci: {week: 2} }
+type: hacks
 ---
 <style>
   .calculator-output {
