@@ -16,3 +16,4 @@ type: tangibles
     *Also added personal Soccer Game (Penalty Shootout)
 - Put Python Quiz in Hacks. 
 - Fixed bugs in Soccer Game (Penalty Shootout)
+- Added asthetically pleasing changes to hacks
