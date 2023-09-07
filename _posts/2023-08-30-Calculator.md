@@ -99,5 +99,113 @@ type: hacks
 
 <!-- JavaScript and animation scripts -->
 <script>
-  // Your JavaScript code here...
+  // initialize important variables to manage calculations
+var firstNumber = null;
+var operator = null;
+var nextReady = true;
+
+// build objects containing key elements
+const output = document.getElementById("output");
+const numbers = document.querySelectorAll(".calculator-number");
+const operations = document.querySelectorAll(".calculator-operation");
+const clear = document.querySelectorAll(".calculator-clear");
+const equals = document.querySelectorAll(".calculator-equals");
+
+// Number buttons listener
+numbers.forEach(button => {
+  button.addEventListener("click", function() {
+    number(button.textContent);
+  });
+});
+
+// Number action
+function number(value) {
+  if (value != ".") {
+    if (nextReady == true) {
+      output.innerHTML = value;
+      if (value != "0") {
+        nextReady = false;
+      }
+    } else {
+      output.innerHTML = output.innerHTML + value;
+    }
+  } else {
+    if (output.innerHTML.indexOf(".") == -1) {
+      output.innerHTML = output.innerHTML + value;
+      nextReady = false;
+    }
+  }
+}
+
+// Operation buttons listener
+operations.forEach(button => {
+  button.addEventListener("click", function() {
+    operation(button.textContent);
+  });
+});
+
+// Operator action
+function operation(choice) {
+  if (firstNumber == null) {
+    firstNumber = parseInt(output.innerHTML);
+    nextReady = true;
+    operator = choice;
+    return;
+  }
+  firstNumber = calculate(firstNumber, parseFloat(output.innerHTML));
+  operator = choice;
+  output.innerHTML = firstNumber.toString();
+  nextReady = true;
+}
+
+// Calculator
+function calculate(first, second) {
+  let result = 0;
+  switch (operator) {
+    case "+":
+      result = first + second;
+      break;
+    case "-":
+      result = first - second;
+      break;
+    case "*":
+      result = first * second;
+      break;
+    case "/":
+      result = first / second;
+      break;
+    default:
+      break;
+  }
+  return result;
+}
+
+// Equals button listener
+equals.forEach(button => {
+  button.addEventListener("click", function() {
+    equal();
+  });
+});
+
+// Equal action
+function equal() {
+  firstNumber = calculate(firstNumber, parseFloat(output.innerHTML));
+  output.innerHTML = firstNumber.toString();
+  nextReady = true;
+}
+
+// Clear button listener
+clear.forEach(button => {
+  button.addEventListener("click", function() {
+    clearCalc();
+  });
+});
+
+// A/C action
+function clearCalc() {
+  firstNumber = null;
+  output.innerHTML = "0";
+  nextReady = true;
+}
+
 </script>

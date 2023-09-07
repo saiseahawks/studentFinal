@@ -1,6 +1,6 @@
 ---
 toc: true
-title: Classic Soccer Game
+title: Penalty Shootout Game
 layout: post
 description: Fun highly challenging guessing game
 courses: {compsci: {week: 2}}
@@ -65,6 +65,10 @@ type: hacks
         <button id="startButton">Start Game</button>
         <div id="gameOutput"></div>
     </div>
+
+    <img id="goalImage" src=goal.png alt="Goal">
+    <img id="goalkeeperImage" src=goalkeeper.png alt="Goalkeeper">
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const startButton = document.getElementById("startButton");
