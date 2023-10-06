@@ -7,205 +7,94 @@ description: A common way to become familiar with a language is to build a calcu
 courses: { compsci: {week: 2} }
 type: hacks
 ---
-<style>
-  body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f0f0f0;
-  }
+<!DOCTYPE html>
+<html lang="en">
 
-  .calculator-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    max-width: 400px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
 
-  .calculator-output {
-    grid-column: span 4;
-    border-radius: 10px;
-    padding: 0.5em;
-    font-size: 24px;
-    border: 2px solid #333;
-    text-align: right;
-    background-color: #f8f8f8;
-  }
+        .circle-cursor {
+            width: 20px;
+            height: 20px;
+            background-color: #ff5733;
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+        }
 
-  .calculator-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    height: 60px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
+        .menu-bar {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+        }
 
-  .calculator-number {
-    background-color: #f0f0f0;
-  }
+        .menu-bar ul {
+            list-style: none;
+            padding: 0;
+        }
 
-  .calculator-operation {
-    background-color: #f8c471;
-  }
+        .menu-bar ul li {
+            display: inline;
+            margin: 0 20px;
+        }
 
-  .calculator-clear {
-    background-color: #e74c3c;
-    color: #fff;
-  }
+        .menu-bar ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
 
-  .calculator-equals {
-    background-color: #2ecc71;
-    color: #fff;
-  }
+        .menu-bar ul li a:hover {
+            color: #ff5733;
+        }
 
-  .calculator-button:hover {
-    background-color: #ddd;
-  }
-</style>
+        .content {
+            padding: 100px;
+            text-align: center;
+            font-size: 24px;
+        }
+    </style>
+    <title>Fancy Car Website</title>
+</head>
 
-<!-- Add a container for the animation -->
-<div id="animation">
-  <div class="calculator-container">
-    <!--result-->
-    <div class="calculator-output" id="output">0</div>
-    <!--row 1 to 4-->
-    <div class="calculator-button calculator-number">1</div>
-    <div class="calculator-button calculator-number">2</div>
-    <div class="calculator-button calculator-number">3</div>
-    <div class="calculator-button calculator-operation">+</div>
-    <div class="calculator-button calculator-number">4</div>
-    <div class="calculator-button calculator-number">5</div>
-    <div class="calculator-button calculator-number">6</div>
-    <div class="calculator-button calculator-operation">-</div>
-    <div class="calculator-button calculator-number">7</div>
-    <div class="calculator-button calculator-number">8</div>
-    <div class="calculator-button calculator-number">9</div>
-    <div class="calculator-button calculator-operation">*</div>
-    <div class="calculator-button calculator-clear">A/C</div>
-    <div class="calculator-button calculator-number">0</div>
-    <div class="calculator-button calculator-number">.</div>
-    <div class="calculator-button calculator-equals">=</div>
-  </div>
-</div>
+<body>
+    <div class="circle-cursor"></div>
+    <nav class="menu-bar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Cars</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="content">
+        <!-- Car images and other content go here -->
+        <h1>Welcome to Our Fancy Car Website!</h1>
+        <p>Explore our amazing collection of luxury cars.</p>
+    </div>
+    <script>
+        const circleCursor = document.querySelector('.circle-cursor');
 
-<!-- JavaScript and animation scripts -->
-<script>
-  // initialize important variables to manage calculations
-var firstNumber = null;
-var operator = null;
-var nextReady = true;
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            circleCursor.style.left = `${clientX}px`;
+            circleCursor.style.top = `${clientY}px`;
+        });
+    </script>
+</body>
 
-// build objects containing key elements
-const output = document.getElementById("output");
-const numbers = document.querySelectorAll(".calculator-number");
-const operations = document.querySelectorAll(".calculator-operation");
-const clear = document.querySelectorAll(".calculator-clear");
-const equals = document.querySelectorAll(".calculator-equals");
-
-// Number buttons listener
-numbers.forEach(button => {
-  button.addEventListener("click", function() {
-    number(button.textContent);
-  });
-});
-
-// Number action
-function number(value) {
-  if (value != ".") {
-    if (nextReady == true) {
-      output.innerHTML = value;
-      if (value != "0") {
-        nextReady = false;
-      }
-    } else {
-      output.innerHTML = output.innerHTML + value;
-    }
-  } else {
-    if (output.innerHTML.indexOf(".") == -1) {
-      output.innerHTML = output.innerHTML + value;
-      nextReady = false;
-    }
-  }
-}
-
-// Operation buttons listener
-operations.forEach(button => {
-  button.addEventListener("click", function() {
-    operation(button.textContent);
-  });
-});
-
-// Operator action
-function operation(choice) {
-  if (firstNumber == null) {
-    firstNumber = parseInt(output.innerHTML);
-    nextReady = true;
-    operator = choice;
-    return;
-  }
-  firstNumber = calculate(firstNumber, parseFloat(output.innerHTML));
-  operator = choice;
-  output.innerHTML = firstNumber.toString();
-  nextReady = true;
-}
-
-// Calculator
-function calculate(first, second) {
-  let result = 0;
-  switch (operator) {
-    case "+":
-      result = first + second;
-      break;
-    case "-":
-      result = first - second;
-      break;
-    case "*":
-      result = first * second;
-      break;
-    case "/":
-      result = first / second;
-      break;
-    default:
-      break;
-  }
-  return result;
-}
-
-// Equals button listener
-equals.forEach(button => {
-  button.addEventListener("click", function() {
-    equal();
-  });
-});
-
-// Equal action
-function equal() {
-  firstNumber = calculate(firstNumber, parseFloat(output.innerHTML));
-  output.innerHTML = firstNumber.toString();
-  nextReady = true;
-}
-
-// Clear button listener
-clear.forEach(button => {
-  button.addEventListener("click", function() {
-    clearCalc();
-  });
-});
-
-// A/C action
-function clearCalc() {
-  firstNumber = null;
-  output.innerHTML = "0";
-  nextReady = true;
-}
-
-</script>
+</html>
